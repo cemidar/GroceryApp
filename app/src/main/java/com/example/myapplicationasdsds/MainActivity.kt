@@ -104,7 +104,10 @@ fun GroceryForm(modifier: Modifier = Modifier, onSaveClicked: (String, String)->
                         .padding(end = 4.dp) // Add padding to the right of the "+" button
                     ,
                     onClick = {
-                        // TODO:  when clicked make amount higher
+                        //when clicked make amount higher
+                        var amountCopy = amount.toInt()
+                        amountCopy++
+                        amount = amountCopy.toString()
                     }
                 ) {
                     Text(text = "+", fontSize = 20.sp)
@@ -115,7 +118,12 @@ fun GroceryForm(modifier: Modifier = Modifier, onSaveClicked: (String, String)->
                         .padding(end = 4.dp) // Add padding to the right of the "+" button
                     ,
                     onClick = {
-                        // TODO:  when clicked make amount smaller
+                        //when clicked make amount smaller
+                        var amountCopy= amount.toInt()
+                        if (amountCopy > 1){
+                            amountCopy--
+                            amount = amountCopy.toString()
+                        }
                     }
                 ) {
                     Text(text = "-", fontSize = 20.sp)
