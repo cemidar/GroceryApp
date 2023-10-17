@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.example.myapplicationasdsds.ui.theme.MyApplicationasdsdsTheme
 
@@ -79,10 +82,15 @@ fun GroceryForm(modifier: Modifier = Modifier, onSaveClicked: (String, String)->
                 value = name, onValueChange = {name = it}, label = {
                 Text(text = "Type a grocery name")
             })
-            TextField(modifier = Modifier.fillMaxWidth(),
-                value = amount, onValueChange = {amount = it}, label = {
-                Text(text = "Amount")
-            })
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = amount,
+                onValueChange = {
+                    amount = (it.toIntOrNull() ?: 0).toString()
+                },
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                label = { Text(text = "Amount") }
+            )
             Button(modifier = Modifier.align(Alignment.CenterHorizontally),
                 onClick = {
                     onSaveClicked(name, amount)
