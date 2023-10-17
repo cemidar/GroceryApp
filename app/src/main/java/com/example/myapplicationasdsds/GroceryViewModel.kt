@@ -12,13 +12,13 @@ class GroceryViewModel: ViewModel() {
 
     val state: StateFlow<Groceries> = _state
     init {
-        addGrocery("paprikový joe", "2")
+        addGrocery("paprikový joe", 2)
     }
 
 
-    fun addGrocery(name: String, amount: String){
+    fun addGrocery(name: String, amount: Int){
         val grocerySize = _state.value.list.size
-        val grocery = Grocery(grocerySize + 1, name, amount.toInt())
+        val grocery = Grocery(grocerySize + 1, name, amount)
 
         val list = _state.value.list.toMutableList()
         list.add(grocery)

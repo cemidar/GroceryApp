@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             //.background(color = Color.LightGray)
                         ){
                             name, amount ->
-                            viewModel.addGrocery(name, amount)
+                            viewModel.addGrocery(name, amount.toInt())
                         }
                 }
             }
