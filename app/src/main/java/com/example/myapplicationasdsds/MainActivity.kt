@@ -5,12 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplicationasdsds.ui.theme.MyApplicationasdsdsTheme
 
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         GroceryForm(modifier = Modifier
                             .fillMaxWidth()
                             .align(BottomCenter)
-                            .background(color = Color.LightGray)
+                            //.background(color = Color.LightGray)
                         ){
                             name, amount ->
                             viewModel.addGrocery(name, amount)
@@ -76,7 +78,7 @@ fun GroceryRow(grocery: Grocery){
 fun GroceryForm(modifier: Modifier = Modifier, onSaveClicked: (String, String)-> Unit){
     Box(modifier = modifier){
         var name: String by remember { mutableStateOf("") }
-        var amount: String by remember { mutableStateOf("") }
+        var amount: String by remember { mutableStateOf("1") }
         Column {
             TextField(modifier = Modifier.fillMaxWidth(),
                 value = name, onValueChange = {name = it}, label = {
@@ -91,13 +93,43 @@ fun GroceryForm(modifier: Modifier = Modifier, onSaveClicked: (String, String)->
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                 label = { Text(text = "Amount") }
             )
-            Button(modifier = Modifier.align(Alignment.CenterHorizontally),
-                onClick = {
-                    onSaveClicked(name, amount)
-                    name = ""
-                    amount = ""
-                }) {
-                Text(text = "add")
+
+            // Three down buttons section (plusAmount, minusAmount, add)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
+                Button(
+                    modifier = Modifier
+                        .weight(0.25f)
+                        .padding(end = 4.dp) // Add padding to the right of the "+" button
+                    ,
+                    onClick = {
+                        // TODO:  when clicked make amount higher
+                    }
+                ) {
+                    Text(text = "+", fontSize = 20.sp)
+                }
+                Button(
+                    modifier = Modifier
+                        .weight(0.25f)
+                        .padding(end = 4.dp) // Add padding to the right of the "+" button
+                    ,
+                    onClick = {
+                        // TODO:  when clicked make amount smaller
+                    }
+                ) {
+                    Text(text = "-", fontSize = 20.sp)
+                }
+                Button(
+                    modifier = Modifier
+                        .weight(0.50f),
+                    onClick = {
+                        onSaveClicked(name, amount)
+                        name = ""
+                        amount = "1"
+                    }) {
+                    Text(text = "add", fontSize = 20.sp)
+                }
             }
         }
 
